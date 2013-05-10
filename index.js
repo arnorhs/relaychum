@@ -50,12 +50,15 @@ Chum.prototype._handle = function (from, line) {
     try { var msg = JSON.parse(line) }
     catch (err) { return }
     
-    if (msg[0] === self.id) {
+    if (msg[0] === self.id
+    || (Array.isArray(msg[0]) && msg[0].indexOf(self.id) >= 0)) {
         self.emit('message', msg[1]);
     }
     
     Object.keys(self.peers).forEach(function (id) {
-        if (id !== from) self.peers[id].queue(line);
+        if (id !== String(from)) {
+            self.peers[id].queue(line + '\n');
+        }
     });
 };
 
