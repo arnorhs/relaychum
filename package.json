@@ -1,0 +1,37 @@
+{
+    "name": "relaychum",
+    "version": "0.0.0",
+    "description": "friend-to-friend anonymous darknet",
+    "main": "index.js",
+    "dependencies": {
+        "inherits": "~1.0.0",
+        "optimist": "~0.4.0",
+        "through": "~2.3.4",
+        "duplexer": "~0.1.1",
+        "split": "~0.2.5"
+    },
+    "devDependencies": {
+        "tap": "~0.4.0"
+    },
+    "scripts": {
+        "test": "tap test/*.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/substack/relaychum.git"
+    },
+    "homepage": "https://github.com/substack/relaychum",
+    "keywords": [
+        "f2f",
+        "p2p",
+        "darknet",
+        "network",
+        "peer"
+    ],
+    "author": {
+        "name": "James Halliday",
+        "email": "mail@substack.net",
+        "url": "http://substack.net"
+    },
+    "license": "MIT"
+}
