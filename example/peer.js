@@ -2,7 +2,7 @@ var net = require('net');
 var argv = require('optimist').argv;
 var through = require('through');
 var relaychum = require('../');
-var relay = relaychum();
+var relay = relaychum({ id: argv.id });
 
 argv._.forEach(function (arg) {
     if (/^\d+$/.test(arg)) {
