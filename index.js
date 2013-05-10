@@ -51,7 +51,7 @@ Chum.prototype._handle = function (from, line) {
     catch (err) { return }
     
     if (msg[0] === self.id) {
-        self.emit.apply(self, [ 'message' ].concat(msg.slice(1)));;
+        self.emit('message', msg[1]);
     }
     
     Object.keys(self.peers).forEach(function (id) {
@@ -60,6 +60,7 @@ Chum.prototype._handle = function (from, line) {
 };
 
 Chum.prototype.send = function (who, msg) {
+    var self = this;
     var s = JSON.stringify([ [].concat(who).filter(Boolean), msg ]) + '\n';
     Object.keys(self.peers).forEach(function (id) {
         self.peers[id].queue(s);
