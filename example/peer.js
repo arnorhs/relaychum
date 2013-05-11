@@ -1,18 +1,17 @@
 var net = require('net');
 var argv = require('optimist').argv;
-var through = require('through');
 var relaychum = require('../');
 var relay = relaychum({ id: argv.id });
 relay.on('message', function (msg) {
     console.log('received message: ' + msg);
 });
 
+var sendParams;
+
 for (var i = 0; i < argv._.length; i++) {
     var arg = argv._[i];
     if (arg === 'send') {
-        setTimeout(function () {
-            relay.send(argv._[i+1], argv._[i+2]);
-        }, 500);
+        sendParams = [argv._[i+1], argv._[i+2]];
         break;
     }
     else if (/^\d+$/.test(arg)) {
@@ -24,7 +23,9 @@ for (var i = 0; i < argv._.length; i++) {
     else {
         var parts = arg.split(':');
         var host = parts[0], port = parts[1];
-        var stream = net.connect(port, host);
+        var stream = net.connect(port, host, function() {
+            sendParams && relay.send(sendParams[0], sendParams[1]);
+        });
         stream.pipe(relay.createStream()).pipe(stream);
     }
 }
